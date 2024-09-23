@@ -1,13 +1,38 @@
-let game = function() {
-    let board = ["", "", "", "", "", "", "", "", ""];
+let board = ["", "", "", "", "", "", "", "", ""];
 
+let game = (() => {
     function player() {
         this.positions = [];
         this.winner = false;
     };
 
     const playerX = new player();
-    const player0 = new player();
+    const playerO = new player();
+
+    let userTurn = true;
+    let gameOn = true;
+
+    let display = () => {
+        victoryCheck();
+
+        if(gameOn) {
+            console.log(`${board[0]} | ${board[1]} | ${board[2]}`);
+            console.log(`${board[3]} | ${board[4]} | ${board[5]}`);
+            console.log(`${board[6]} | ${board[7]} | ${board[8]}`);
+            playing();
+        } else {};
+    };
+
+    function pushing(playerPosition, playerName) {
+        playerPosition = playerPosition - 1;
+        if(playerName == playerX) {
+            board[playerPosition] = "X";
+        } else if(playerName == playerO) {
+            board[playerPosition] = "O";
+        };
+        playerName.positions.push(playerPosition);
+        console.log(playerX);
+    };
 
     let victoryCheck = () => {
         let winRule = [
@@ -24,18 +49,54 @@ let game = function() {
         function winner(indPlayer) {
             console.log(`${indPlayer} wins`);
             indPlayer.winner = true;
+            gameOn = false;
         };
 
         for(i = 0; i < winRule.length; i++) {
-            if(playerX.includes(winRule[i])) {
+            if(playerX.positions.includes(winRule[i])) {
+                console.log(playerX.positions);
                 winner(playerX);
-            } else if(playerO.includes(winRule[i])) {
-                winner(player0);
+            } else if(playerO.positions.includes(winRule[i])) {
+                console.log(playerO.positions);
+                winner(playerO);
+            } else if(board.forEach != "" && (playerX.winner || playerO.winner)) {
+                console.log("It's a tie.");
+                gameOn = false;
             }
         }
-
-        if(board.forEach != "" && (playerX.winner || player0.winner)) {
-            return "It's a tie.";
-        }
     };
-};
+
+    let playing = () => {
+        if(userTurn) {
+            console.log("You're X.");
+            let userChoice = prompt("Choose your position");
+            pushing(userChoice, playerX);
+
+            userTurn = false;
+        } else {
+            let botPlayer = () => {
+                let choosing = () => {
+                    return Math.floor(Math.random() * 9);
+                };
+
+                let theChoice = choosing();
+                console.log(`Bot chose ${theChoice}`);
+        
+                while(board[theChoice] != "") {
+                    console.log("Spot is occupied.");
+                    theChoice = choosing();
+                };
+                
+                theChoice++;
+                pushing(theChoice, playerO);
+                userTurn = true;
+            };
+
+            botPlayer();
+        };
+
+        display();
+    };
+ 
+    display();
+}) ();
