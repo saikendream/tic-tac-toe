@@ -69,21 +69,20 @@ let game = () => {
                 winner(playerO);
             };
 
-            if(board.allEqual(board, "") && !(playerX.winner) && !(playerO.winner)) {
+            if(!(board.allEqual(board, "")) && playerX.winner && playerO.winner) {
                 console.log(Boolean(board.allEqual(board, "")));
-                console.log(Boolean(playerX.winner || playerO.winner));
+                console.log(Boolean(playerX.winner));
                 console.log(Boolean(!(board.allEqual(board, "")) && !(playerX.winner) && !(playerO.winner)));
                 console.log("It's a tie.");
                 gameOn = false;
             } else {
-                console.log(playerX.positions);
+                console.log("Tie function is false.");
             }
         }
     };
 
     let playing = () => {
         if(userTurn) {
-            console.log("You're X.");
             let userChoice = prompt("Choose your position");
             pushing(userChoice, playerX);
 
@@ -104,7 +103,7 @@ let game = () => {
                     theChoice = choosing();
 
                     loop++;
-                    if(loop >= 1000) {break};
+                    if(loop >= 1000) { victoryCheck(); };
                 };
                 
                 theChoice++;
