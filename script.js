@@ -1,13 +1,14 @@
 let board = ["", "", "", "", "", "", "", "", ""];
 
-let game = (() => {
-    function player() {
+let game = () => {
+    function player(name) {
+        this.name = name;
         this.positions = [];
         this.winner = false;
     };
 
-    const playerX = new player();
-    const playerO = new player();
+    const playerX = new player("X");
+    const playerO = new player("O");
 
     let userTurn = true;
     let gameOn = true;
@@ -31,37 +32,51 @@ let game = (() => {
             board[playerPosition] = "O";
         };
         playerName.positions.push(playerPosition);
-        console.log(playerX);
+        console.log(playerName);
     };
 
     let victoryCheck = () => {
         let winRule = [
-            [1, 2, 3],
-            [4, 5, 6],
-            [7, 8, 9],
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
             [1, 4, 7],
             [2, 5, 8],
-            [3, 6, 9],
-            [1, 5, 9],
-            [3, 5, 7]
+            [0, 4, 8],
+            [2, 4, 6]
         ];
 
         function winner(indPlayer) {
-            console.log(`${indPlayer} wins`);
+            console.log("Winner is:");
+            console.log(indPlayer);
             indPlayer.winner = true;
             gameOn = false;
         };
 
+        Array.prototype.allEqual = function (arr, value) {
+            return arr.every((el) => board[el] == value);
+        };
+
         for(i = 0; i < winRule.length; i++) {
-            if(playerX.positions.includes(winRule[i])) {
-                console.log(playerX.positions);
+            const round = winRule[i];
+
+            if(board.allEqual(round, "")) { console.log("All clear")
+                continue; };
+            if(board.allEqual(round, "X")) {
                 winner(playerX);
-            } else if(playerO.positions.includes(winRule[i])) {
-                console.log(playerO.positions);
+            } else if(board.allEqual(round, "O")) {
                 winner(playerO);
-            } else if(board.forEach != "" && (playerX.winner || playerO.winner)) {
+            };
+
+            if(board.allEqual(board, "") && !(playerX.winner) && !(playerO.winner)) {
+                console.log(Boolean(board.allEqual(board, "")));
+                console.log(Boolean(playerX.winner || playerO.winner));
+                console.log(Boolean(!(board.allEqual(board, "")) && !(playerX.winner) && !(playerO.winner)));
                 console.log("It's a tie.");
                 gameOn = false;
+            } else {
+                console.log(playerX.positions);
             }
         }
     };
@@ -81,10 +96,15 @@ let game = (() => {
 
                 let theChoice = choosing();
                 console.log(`Bot chose ${theChoice}`);
+
+                let loop = 0;
         
                 while(board[theChoice] != "") {
                     console.log("Spot is occupied.");
                     theChoice = choosing();
+
+                    loop++;
+                    if(loop >= 1000) {break};
                 };
                 
                 theChoice++;
@@ -99,4 +119,4 @@ let game = (() => {
     };
  
     display();
-}) ();
+};
