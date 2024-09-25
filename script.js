@@ -69,10 +69,7 @@ let game = () => {
                 winner(playerO);
             };
 
-            if(!(board.allEqual(board, "")) && playerX.winner && playerO.winner) {
-                console.log(Boolean(board.allEqual(board, "")));
-                console.log(Boolean(playerX.winner));
-                console.log(Boolean(!(board.allEqual(board, "")) && !(playerX.winner) && !(playerO.winner)));
+            if((board.every((el) => el != "")) && (playerX.winner == false) && (playerO.winner == false)) {
                 console.log("It's a tie.");
                 gameOn = false;
             } else {
