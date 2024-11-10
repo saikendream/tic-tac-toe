@@ -20,6 +20,7 @@ body {
 }
 
 .field {
+    display: flex;
     width: 200px;
     height: 200px;
     border: solid 5px #84cc16;
@@ -27,7 +28,8 @@ body {
     cursor: pointer;
     font-size: 80pt;
     text-align: center;
-    vertical-align: middle;
     color: #393e34;
+    align-items: center;
+    justify-content: center;
 }
 
