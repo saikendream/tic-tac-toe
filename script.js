@@ -116,3 +116,14 @@ let game = () => {
  
     display();
 };
+
+// EVENT LISTENERS
+
+let field = document.querySelectorAll('.field');
+
+function userClick(index) {
+    if(userTurn && this.textContent == "") {
+        this.textContent == "X";
+        
+    }
+}
