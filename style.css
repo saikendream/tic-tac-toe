@@ -1,0 +1,33 @@
+* {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #818c76;
+}
+
+#wrapper {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#game {
+    display: grid;
+    grid-template-columns: repeat(3, 200px);
+    grid-template-rows: repeat(3, 200px);
+}
+
+.field {
+    width: 200px;
+    height: 200px;
+    border: solid 5px #84cc16;
+    background-color: #c4e3a7;
+    cursor: pointer;
+    font-size: 80pt;
+    text-align: center;
+    vertical-align: middle;
+    color: #393e34;
+}
+
